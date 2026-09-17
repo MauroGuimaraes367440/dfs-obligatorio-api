@@ -2,6 +2,7 @@ import express from "express";
 import usuariosRoutes from "./routes/usuarios.routes.js";
 import postulacionesRoutes from "./routes/postulaciones.routes.js";
 import categoriasRoutes from "./routes/categorias.routes.js";
+import authRoutes from "./routes/auth.routes.js";
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router.get("/", (req, res) => {
   });
 });
 
+router.use("/auth", authRoutes);
 router.use("/usuarios", usuariosRoutes);
 router.use("/postulaciones", postulacionesRoutes);
 router.use("/categorias", categoriasRoutes);

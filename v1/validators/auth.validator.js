@@ -19,7 +19,7 @@ password: Joi.string().min(6).max(30).required().messages({
 }).required();
 
 export const loginUsuarioSchema = Joi.object({
-  username: Joi.string().required().messages({
+  username: Joi.string().trim().lowercase().required().messages({
     "string.base": "El nombre de usuario debe ser un texto",
     "string.empty": "El nombre de usuario no puede estar vacío",
     "any.required": "El nombre de usuario es obligatorio"

@@ -1,25 +1,40 @@
-export const obtenerCategorias = (req, res) => {
-  res.status(501).json({
-    message: "Listado de categorías pendiente de implementar"
-  });
+import {
+  crearCategoriaService,
+  obtenerCategoriasService,
+  obtenerCategoriaPorIdService,
+  actualizarCategoriaService
+} from "../services/categorias.services.js";
+
+export const obtenerCategorias = async (req, res) => {
+  const categorias = await obtenerCategoriasService();
+
+  res.status(200).json(categorias);
 };
 
-export const obtenerCategoriaPorId = (req, res) => {
-  res.status(501).json({
-    message: "Consulta de categoría pendiente de implementar"
-  });
+export const obtenerCategoriaPorId = async (req, res) => {
+  const { id } = req.validatedParams;
+
+  const categoria = await obtenerCategoriaPorIdService(id);
+
+  res.status(200).json(categoria);
 };
 
-export const crearCategoria = (req, res) => {
-  res.status(501).json({
-    message: "Creación de categoría pendiente de implementar"
-  });
+export const crearCategoria = async (req, res) => {
+  const categoria = await crearCategoriaService(req.validatedBody);
+
+  res.status(201).json(categoria);
 };
 
-export const actualizarCategoria = (req, res) => {
-  res.status(501).json({
-    message: "Actualización de categoría pendiente de implementar"
-  });
+
+export const actualizarCategoria = async (req, res) => {
+  const { id } = req.validatedParams;
+
+  const categoria = await actualizarCategoriaService(
+    id,
+    req.validatedBody
+  );
+
+  res.status(200).json(categoria);
 };
 
 export const eliminarCategoria = (req, res) => {

@@ -1,6 +1,14 @@
 import express from "express";
 
 import {
+  validarBodyMiddleware
+} from "../middlewares/validarBody.middleware.js";
+
+import {
+  crearPostulacionSchema
+} from "../validators/postulaciones.validator.js";
+
+import {
   obtenerPostulaciones,
   obtenerPostulacionPorId,
   crearPostulacion,
@@ -12,7 +20,11 @@ const router = express.Router();
 
 router.get("/", obtenerPostulaciones);
 router.get("/:id", obtenerPostulacionPorId);
-router.post("/", crearPostulacion);
+router.post(
+  "/",
+  validarBodyMiddleware(crearPostulacionSchema),
+  crearPostulacion
+);
 router.patch("/:id", actualizarPostulacion);
 router.delete("/:id", eliminarPostulacion);
 

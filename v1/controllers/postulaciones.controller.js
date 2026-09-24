@@ -1,3 +1,7 @@
+import {
+  crearPostulacionService
+} from "../services/postulaciones.services.js";
+
 export const obtenerPostulaciones = (req, res) => {
   res.status(501).json({
     message: "Listado de postulaciones pendiente de implementar"
@@ -10,10 +14,15 @@ export const obtenerPostulacionPorId = (req, res) => {
   });
 };
 
-export const crearPostulacion = (req, res) => {
-  res.status(501).json({
-    message: "Creación de postulación pendiente de implementar"
-  });
+export const crearPostulacion = async (req, res) => {
+  const usuarioId = req.decoded.id;
+
+  const postulacion = await crearPostulacionService(
+    usuarioId,
+    req.validatedBody
+  );
+
+  res.status(201).json(postulacion);
 };
 
 export const actualizarPostulacion = (req, res) => {

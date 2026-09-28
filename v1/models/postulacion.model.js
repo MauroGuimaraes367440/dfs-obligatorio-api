@@ -52,12 +52,8 @@ const postulacionSchema = new mongoose.Schema({
   notas: {
     type: String,
     trim: true
-  },
-
-  imagenUrl: {
-    type: String,
-    trim: true
   }
+
 });
 
 const Postulacion = mongoose.model(

@@ -7,6 +7,10 @@ const categoriaSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true
+  },
+    imagenUrl: {
+    type: String,
+    trim: true
   }
 });
 

@@ -5,7 +5,18 @@ import {
 } from "../middlewares/validarBody.middleware.js";
 
 import {
-  crearPostulacionSchema
+  validarQueryMiddleware
+} from "../middlewares/validarQuery.middleware.js";
+
+import {
+  validarParamsMiddleware
+} from "../middlewares/validarParams.middleware.js";
+
+import {
+  crearPostulacionSchema,
+  listarPostulacionesSchema,
+  postulacionIdParamSchema,
+  actualizarPostulacionSchema
 } from "../validators/postulaciones.validator.js";
 
 import {
@@ -13,19 +24,47 @@ import {
   obtenerPostulacionPorId,
   crearPostulacion,
   actualizarPostulacion,
-  eliminarPostulacion
+  eliminarPostulacion,
+  generarPreparacion
 } from "../controllers/postulaciones.controller.js";
 
 const router = express.Router();
 
-router.get("/", obtenerPostulaciones);
-router.get("/:id", obtenerPostulacionPorId);
+router.get(
+  "/",
+  validarQueryMiddleware(listarPostulacionesSchema),
+  obtenerPostulaciones
+);
+
+router.get(
+  "/:id",
+  validarParamsMiddleware(postulacionIdParamSchema),
+  obtenerPostulacionPorId
+);
+
 router.post(
   "/",
   validarBodyMiddleware(crearPostulacionSchema),
   crearPostulacion
 );
-router.patch("/:id", actualizarPostulacion);
-router.delete("/:id", eliminarPostulacion);
+
+router.patch(
+  "/:id",
+  validarParamsMiddleware(postulacionIdParamSchema),
+  validarBodyMiddleware(actualizarPostulacionSchema),
+  actualizarPostulacion
+);
+
+router.delete(
+  "/:id",
+  validarParamsMiddleware(postulacionIdParamSchema),
+  eliminarPostulacion
+);
+
+router.post(
+  "/:id/preparacion",
+  validarParamsMiddleware(postulacionIdParamSchema),
+  generarPreparacion
+);
 
 export default router;

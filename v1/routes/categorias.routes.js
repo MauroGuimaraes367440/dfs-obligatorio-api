@@ -5,7 +5,8 @@ import {
   obtenerCategoriaPorId,
   crearCategoria,
   actualizarCategoria,
-  eliminarCategoria
+  eliminarCategoria,
+  subirImagenCategoria
 } from "../controllers/categorias.controller.js";
 
 import {
@@ -53,7 +54,15 @@ router.patch(
 router.delete(
   "/:id",
   authorizeMiddleware("admin"),
+  validarParamsMiddleware(categoriaIdParamSchema),
   eliminarCategoria
+);
+
+router.post(
+  "/:id/imagen",
+  authorizeMiddleware("admin"),
+  validarParamsMiddleware(categoriaIdParamSchema),
+  subirImagenCategoria
 );
 
 export default router;

@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import routes from "./v1/v1.routes.js";
 import notFoundMiddleware from "./v1/middlewares/notFound.middleware.js";
 import dotenv from "dotenv";
@@ -9,6 +10,14 @@ dotenv.config();
 
 connectDB();
 const app = express();
+
+// Orígenes (frontends) que pueden consumir la API desde el navegador
+const origenesPermitidos = [
+  "http://localhost:5173",
+  process.env.FRONTEND_URL
+];
+
+app.use(cors({ origin: origenesPermitidos }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
